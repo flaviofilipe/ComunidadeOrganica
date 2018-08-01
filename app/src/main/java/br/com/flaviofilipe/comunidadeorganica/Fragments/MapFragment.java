@@ -1,22 +1,14 @@
 package br.com.flaviofilipe.comunidadeorganica.Fragments;
 
 
-import android.Manifest;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,27 +22,24 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import br.com.flaviofilipe.comunidadeorganica.Activitys.MainActivity;
 import br.com.flaviofilipe.comunidadeorganica.R;
 
 public class MapFragment extends Fragment implements OnMapReadyCallback, LocationListener {
 
     GoogleMap map;
     private LocationManager locationManager;
-    Location myLocation;
     View view;
     double latitude;
     double longitude;
     LatLng locationNow;
 
+    Location location;
     //Tela do fragment 1
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragments_map, container, false);
         //requestPermission();
-        latitude = 0.0;
-        longitude = 0.0;
         return view;
     }
 
@@ -63,7 +52,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
         locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
 
-        //ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
     }
 
 
@@ -71,16 +59,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     public void onResume() {
         super.onResume();
         Log.d("STATUS", "onResume");
-        //Ativa GPS
-        try {
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
 
-        } catch (SecurityException ex) {
-            Toast.makeText(getContext(), "Erro permission failed: " + ex, Toast.LENGTH_SHORT).show();
-
-        } catch (Exception e) {
-            Log.e("LOCATION MANAGER", e.getMessage());
-        }
     }
 
 
@@ -95,6 +74,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
+        Log.i("STATUS", "MapRead");
+
         try {
 
             map = googleMap;
@@ -102,7 +83,30 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
             //Add btn zoom
             map.getUiSettings().setZoomControlsEnabled(true);
             map.setMyLocationEnabled(true);
-            map.setMinZoomPreference(15);
+            //map.setMinZoomPreference(17);
+
+
+            if(location == null) {
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+                if (locationManager != null) {
+                    location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+                    latitude = location.getLatitude();
+                    longitude = location.getLongitude();
+                    locationNow = new LatLng(latitude, longitude);
+                    Log.i("LATITUDE", String.valueOf(latitude));
+                    Log.i("LONGITUDE", String.valueOf(longitude));
+                    map.animateCamera(CameraUpdateFactory.newLatLngZoom(locationNow, 15.0f));
+
+
+                    //map.moveCamera(CameraUpdateFactory.newLatLng(locationNow));
+
+                }
+            }
+
+
+                //map.animateCamera(CameraUpdateFactory.newLatLngZoom(locationNow, 12.0f));
+
         } catch (SecurityException ex) {
             Log.e("Erro Location Map", "ERRO", ex);
         }
@@ -117,12 +121,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
     @Override
     public void onLocationChanged(Location location) {
-        //Quando muda a localização
 
-        latitude = location.getLatitude();
-        longitude = location.getLongitude();
-        locationNow = new LatLng(latitude, longitude);
-        map.moveCamera(CameraUpdateFactory.newLatLng(locationNow));
+
     }
 
     @Override
