@@ -13,7 +13,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -34,12 +33,12 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     LatLng locationNow;
 
     Location location;
+
     //Tela do fragment 1
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragments_map, container, false);
-        //requestPermission();
         return view;
     }
 
@@ -50,26 +49,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map_fragment);
         mapFragment.getMapAsync(this);
 
-        locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-
     }
 
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        Log.d("STATUS", "onResume");
-
-    }
-
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        //Remove atualização do privider para enconomizar recursos
-        locationManager.removeUpdates(this);
-
-    }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -83,10 +64,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
             //Add btn zoom
             map.getUiSettings().setZoomControlsEnabled(true);
             map.setMyLocationEnabled(true);
-            //map.setMinZoomPreference(17);
 
-
-            if(location == null) {
+            //Pega a localização atual e move a cam
+            locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
+            if (location == null) {
                 locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
                 if (locationManager != null) {
                     location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
@@ -105,7 +86,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
             }
 
 
-                //map.animateCamera(CameraUpdateFactory.newLatLngZoom(locationNow, 12.0f));
+
 
         } catch (SecurityException ex) {
             Log.e("Erro Location Map", "ERRO", ex);
@@ -118,6 +99,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         map.addMarker(marker);
 
     }
+
 
     @Override
     public void onLocationChanged(Location location) {

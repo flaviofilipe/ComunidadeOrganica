@@ -42,7 +42,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsHolder> {
         holder.launchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Toast.makeText(view.getContext(),mPosts.get(position).getLink(),Toast.LENGTH_SHORT).show();
             }
         });
 
