@@ -11,11 +11,11 @@ import java.util.List;
 import java.util.Locale;
 
 import br.com.flaviofilipe.comunidadeorganica.Holder.PostsHolder;
-import br.com.flaviofilipe.comunidadeorganica.PostsModel;
+import br.com.flaviofilipe.comunidadeorganica.Posts;
 import br.com.flaviofilipe.comunidadeorganica.R;
 
 public class PostsAdapter extends RecyclerView.Adapter<PostsHolder> {
-    private final List<PostsModel> mPosts;
+    private final List<Posts> mPosts;
 
     public PostsAdapter(ArrayList posts) {
         mPosts = posts;
@@ -55,12 +55,12 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsHolder> {
     }
 
 
-    public void updateList(PostsModel post) {
+    public void updateList(Posts post) {
         insertItem(post);
     }
 
     // Método responsável por inserir um novo usuário na lista e notificar que há novos itens.
-    private void insertItem(PostsModel post) {
+    private void insertItem(Posts post) {
         mPosts.add(post);
         notifyItemInserted(getItemCount());
     }

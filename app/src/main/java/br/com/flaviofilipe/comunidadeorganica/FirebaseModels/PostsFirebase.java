@@ -1,12 +1,7 @@
-package br.com.flaviofilipe.comunidadeorganica.Fragments;
+package br.com.flaviofilipe.comunidadeorganica.FirebaseModels;
 
-
+import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,45 +14,25 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
-import br.com.flaviofilipe.comunidadeorganica.FirebaseModels.PostsFirebase;
 import br.com.flaviofilipe.comunidadeorganica.Holder.PostsHolder;
 import br.com.flaviofilipe.comunidadeorganica.Posts;
 import br.com.flaviofilipe.comunidadeorganica.R;
 
-public class PostsFragment extends Fragment {
+public class PostsFirebase {
+
 
     FirebaseDatabase database;
     DatabaseReference ref;
+    Context context;
     RecyclerView rv;
 
-    //Tela do fragment 1
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+    public PostsFirebase(Context contex, RecyclerView rv) {
+        this.context = contex;
+        this.rv = rv;
 
-        rv = new RecyclerView(getContext());
-        rv.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        // Configurando um dividr entre linhas, para uma melhor visualização.
-        rv.addItemDecoration(
-                new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
-
-
-        //FirebaseDatabase.getInstance().setPersistenceEnabled(true);
-        //database = FirebaseDatabase.getInstance();
-
-        return rv;
-
+        database = FirebaseDatabase.getInstance();
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        PostsFirebase posts = new PostsFirebase(getContext(), rv);
-        posts.getPostsFirebase();
-
-
-    }
 
 
     public void getPostsFirebase() {
@@ -90,7 +65,7 @@ public class PostsFragment extends Fragment {
                 holder.launchButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(getContext(),postsModel.getLink(),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context,postsModel.getLink(),Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -104,5 +79,6 @@ public class PostsFragment extends Fragment {
 
     }
 
-}
 
+
+}

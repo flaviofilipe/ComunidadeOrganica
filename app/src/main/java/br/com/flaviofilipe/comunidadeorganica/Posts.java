@@ -1,14 +1,14 @@
 package br.com.flaviofilipe.comunidadeorganica;
 
-public class PostsModel {
+public class Posts {
     private String title;
     private String description;
     private String date;
     private String link;
 
-    public PostsModel(){}
+    public Posts(){}
 
-    public PostsModel(String title, String description, String date, String link) {
+    public Posts(String title, String description, String date, String link) {
         this.title = title;
         this.description = description;
         this.date = date;

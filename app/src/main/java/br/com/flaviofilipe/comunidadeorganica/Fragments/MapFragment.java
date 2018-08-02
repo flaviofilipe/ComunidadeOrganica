@@ -21,6 +21,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import br.com.flaviofilipe.comunidadeorganica.FirebaseModels.MapFirebase;
 import br.com.flaviofilipe.comunidadeorganica.R;
 
 public class MapFragment extends Fragment implements OnMapReadyCallback, LocationListener {
@@ -75,8 +76,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                     latitude = location.getLatitude();
                     longitude = location.getLongitude();
                     locationNow = new LatLng(latitude, longitude);
-                    Log.i("LATITUDE", String.valueOf(latitude));
-                    Log.i("LONGITUDE", String.valueOf(longitude));
+                    Log.i("LATITUDE_ATUAL", String.valueOf(latitude));
+                    Log.i("LONGITUDE_ATUAL", String.valueOf(longitude));
                     map.animateCamera(CameraUpdateFactory.newLatLngZoom(locationNow, 15.0f));
 
 
@@ -89,14 +90,20 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
 
         } catch (SecurityException ex) {
-            Log.e("Erro Location Map", "ERRO", ex);
+            Log.e("Erro Location Maps", "ERRO", ex);
         }
 
+
+
+        MapFirebase mapFirebase = new MapFirebase(map);
+        mapFirebase.getLocations();
+
+        /*
         LatLng ifba = new LatLng(-14.841753, -40.877857);
         MarkerOptions marker = new MarkerOptions();
         marker.position(ifba).title("IFBA");
-
         map.addMarker(marker);
+        */
 
     }
 
