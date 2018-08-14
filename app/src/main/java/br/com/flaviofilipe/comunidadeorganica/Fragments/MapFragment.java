@@ -1,7 +1,10 @@
 package br.com.flaviofilipe.comunidadeorganica.Fragments;
 
 
+import android.app.Activity;
 import android.content.Context;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -13,13 +16,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.io.IOException;
+import java.util.List;
 
 import br.com.flaviofilipe.comunidadeorganica.FirebaseModels.MapFirebase;
 import br.com.flaviofilipe.comunidadeorganica.R;
@@ -32,7 +38,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     double latitude;
     double longitude;
     LatLng locationNow;
-
     Location location;
 
     //Tela do fragment 1
@@ -52,11 +57,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-
-        Log.i("STATUS", "MapRead");
 
         try {
 
@@ -73,44 +80,29 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                 if (locationManager != null) {
                     location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
+
                     latitude = location.getLatitude();
                     longitude = location.getLongitude();
                     locationNow = new LatLng(latitude, longitude);
-                    Log.i("LATITUDE_ATUAL", String.valueOf(latitude));
-                    Log.i("LONGITUDE_ATUAL", String.valueOf(longitude));
                     map.animateCamera(CameraUpdateFactory.newLatLngZoom(locationNow, 15.0f));
 
 
-                    //map.moveCamera(CameraUpdateFactory.newLatLng(locationNow));
-
                 }
             }
-
-
-
 
         } catch (SecurityException ex) {
             Log.e("Erro Location Maps", "ERRO", ex);
         }
 
 
-
-        MapFirebase mapFirebase = new MapFirebase(map);
-        mapFirebase.getLocations();
-
-        /*
-        LatLng ifba = new LatLng(-14.841753, -40.877857);
-        MarkerOptions marker = new MarkerOptions();
-        marker.position(ifba).title("IFBA");
-        map.addMarker(marker);
-        */
+        MapFirebase mapFirebase = new MapFirebase(getContext(), getFragmentManager(), map);
+        mapFirebase.getItens();
 
     }
 
 
     @Override
     public void onLocationChanged(Location location) {
-
 
     }
 
@@ -129,6 +121,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     public void onProviderDisabled(String provider) {
         //Provider Desabilitado
     }
+
 
 
 }

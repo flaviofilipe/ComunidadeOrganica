@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/list"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipToPadding="false"
+    android:paddingBottom="@dimen/list_item_spacing_half"
+    android:paddingTop="@dimen/list_item_spacing_half"
+    android:paddingHorizontal="@dimen/list_item_spacing_half"
+    android:gravity="center_horizontal"
+    tools:context=".Fragments.MapInfoFragment">
+
+    <TextView
+        android:id="@+id/txt_mapName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Teste"
+        android:textSize="20dp"
+        android:textAlignment="center"
+        android:textColor="@android:color/holo_blue_light"/>
+
+    <TextView
+        android:id="@+id/txt_mapDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Description"
+        android:textAlignment="center"
+        android:textColor="@android:color/darker_gray"/>
+
+    <TextView
+        android:id="@+id/txt_mapEndereco"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rua do Méier, 31. Bairro Cidade Maravilhosa"
+        android:textAlignment="center"
+        android:textColor="@android:color/darker_gray"/>
+
+    <TextView
+        android:id="@+id/txt_mapContato"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tel: 77008115173 | Email: flaviofilipe97@gmail.com"
+        android:textColor="@android:color/darker_gray"/>
+
+</LinearLayout>

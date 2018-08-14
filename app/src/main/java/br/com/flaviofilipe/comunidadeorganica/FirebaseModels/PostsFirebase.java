@@ -1,6 +1,8 @@
 package br.com.flaviofilipe.comunidadeorganica.FirebaseModels;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -66,6 +68,7 @@ public class PostsFirebase {
                     @Override
                     public void onClick(View v) {
                         Toast.makeText(context,postsModel.getLink(),Toast.LENGTH_SHORT).show();
+                        browseTo(postsModel.getLink());
                     }
                 });
 
@@ -77,6 +80,16 @@ public class PostsFirebase {
         rv.setAdapter(adapter);
         adapter.startListening();
 
+    }
+
+    public void browseTo(String url){
+
+        if (!url.startsWith("http://") && !url.startsWith("https://")){
+            url = "http://" + url;
+        }
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(url));
+        context.startActivity(i);
     }
 
 

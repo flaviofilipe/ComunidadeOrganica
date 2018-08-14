@@ -1,11 +1,9 @@
 package br.com.flaviofilipe.comunidadeorganica.Holder;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import br.com.flaviofilipe.comunidadeorganica.R;
 
