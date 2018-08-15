@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".Activitys.SobreActivity"
+    tools:showIn="@layout/activity_sobre">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Sobre o Projeto"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/txt_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="  O app Comunidade Orgânica foi criado para atender as necessidades de localizar onde há a comercialização de alimentos orgânicos. Além disso ele traz links de matérias relacionadas ao assunto para esclarecer, informar e incentivar o uso desses alimentos."
+        android:textAlignment="center" />
+
+
+</LinearLayout>

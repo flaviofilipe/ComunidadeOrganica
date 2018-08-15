@@ -6,6 +6,7 @@ import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialogFragment;
+import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -58,6 +59,7 @@ public class MapInfoFragment extends BottomSheetDialogFragment {
         txtDescription = view.findViewById(R.id.txt_mapDescription);
         txtEndereco = view.findViewById(R.id.txt_mapEndereco);
         txtContato = view.findViewById(R.id.txt_mapContato);
+
 
         try {
             localizacao = getEndereco(latitude, longitude);

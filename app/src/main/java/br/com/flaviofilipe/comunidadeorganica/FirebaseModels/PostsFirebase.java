@@ -82,7 +82,8 @@ public class PostsFirebase {
 
     }
 
-    public void browseTo(String url){
+    //Abre link exterior
+    private void browseTo(String url){
 
         if (!url.startsWith("http://") && !url.startsWith("https://")){
             url = "http://" + url;
