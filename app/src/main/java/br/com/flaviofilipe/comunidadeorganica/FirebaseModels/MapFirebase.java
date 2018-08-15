@@ -49,8 +49,6 @@ public class MapFirebase {
             Double longitude = dataSnapshot.getValue(Maps.class).getLongitude();
 
 
-            //mapInfo = new MapInfoFragment(dataSnapshot,name);
-
             LatLng location = new LatLng(latitude, longitude);
             MarkerOptions marker = new MarkerOptions();
             marker.position(location)
@@ -60,13 +58,7 @@ public class MapFirebase {
             map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                 @Override
                 public boolean onMarkerClick(Marker marker) {
-                    //mapInfo.show(fragmentManager,"teste"); //Exibr o fragment);
-
-                    //Toast.makeText(context, dataSnapshot.getValue().toString(), Toast.LENGTH_LONG).show();
-
                     infoMap(marker.getTitle());
-
-                    //Toast.makeText(context, marker.getTitle(), Toast.LENGTH_SHORT).show();
                     return false;
                 }
             });
@@ -89,17 +81,15 @@ public class MapFirebase {
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String previousChildName) {
-                getLocations(dataSnapshot);
+                //getLocations(dataSnapshot);
             }
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-                // ...
             }
 
             @Override
             public void onChildMoved(DataSnapshot dataSnapshot, String previousChildName) {
-                // ...
             }
 
             @Override
@@ -111,7 +101,7 @@ public class MapFirebase {
         query.addChildEventListener(childEventListener);
     }
 
-    public void infoMap(String name) {
+    private void infoMap(String name) {
 
         myRef = mDatabase.getReference().child("LOCATIONS");
         myRef.orderByChild("name").equalTo(name).addValueEventListener(new ValueEventListener() {
@@ -125,7 +115,7 @@ public class MapFirebase {
 
 
                         mapInfo = new MapInfoFragment(myMap);
-                        mapInfo.show(fragmentManager,"teste"); //Exibr o fra
+                        mapInfo.show(fragmentManager,"ShowInfo"); //Exibr o fra
                         Log.i("MarkerInfoSnapShot0111", dataSnapshot.getValue().toString());
                     }
                 }

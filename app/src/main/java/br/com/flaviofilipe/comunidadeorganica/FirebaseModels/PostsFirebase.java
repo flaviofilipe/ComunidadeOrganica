@@ -42,6 +42,7 @@ public class PostsFirebase {
         Query query = FirebaseDatabase.getInstance()
                 .getReference()
                 .child("POSTS");
+
         FirebaseRecyclerOptions<Posts> options =
                 new FirebaseRecyclerOptions.Builder<Posts>()
                         .setQuery(query, Posts.class)
@@ -60,7 +61,7 @@ public class PostsFirebase {
             @Override
             protected void onBindViewHolder(@NonNull PostsHolder holder, int position, @NonNull final Posts postsModel) {
 
-                //Insere os valores na nosta
+                //Insere os valores na lista
                 holder.setTitle(postsModel.getTitle());
                 holder.setDescription(postsModel.getDescription());
                 holder.setData(postsModel.getDate());

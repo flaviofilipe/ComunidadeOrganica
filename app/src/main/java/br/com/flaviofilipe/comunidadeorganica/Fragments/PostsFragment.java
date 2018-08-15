@@ -14,14 +14,20 @@ import br.com.flaviofilipe.comunidadeorganica.FirebaseModels.PostsFirebase;
 public class PostsFragment extends Fragment {
 
     RecyclerView rv;
+    private LinearLayoutManager mLayoutManager;
 
     //Tela do fragment 1
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
 
+
+        mLayoutManager = new LinearLayoutManager(getContext());
+        mLayoutManager.setReverseLayout(true);
+        mLayoutManager.setStackFromEnd(true);
+
         rv = new RecyclerView(getContext());
-        rv.setLayoutManager(new LinearLayoutManager(getContext()));
+        rv.setLayoutManager(mLayoutManager);
 
         // Configurando um dividr entre linhas, para uma melhor visualização.
         rv.addItemDecoration(
